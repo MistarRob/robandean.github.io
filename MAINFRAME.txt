@@ -1,0 +1,10 @@
+ADDGROUP RDZUSERS OMVS(AUTOGID)
+    ADDUSER #userid DFLTGRP(RDZUSERS) NAME('#name') PASSWORD(#password)
+    ALTUSER #userid OMVS(HOME(/u/#userid) PROGRAM(/bin/sh) AUTOUID)
+    ALTUSER #userid TSO(ACCTNUM(ACCT#) PROC(TSOLOGON) SIZE(4096) COMMAND('ISPF'))
+    ADDSD '#userid.*' UACC(NONE)
+    PERMIT ACCT# CLASS(ACCTNUM) ID(#userid) ACCESS(READ)
+    DEFINE ALIAS (NAME('#userid') RELATE('USERCAT.Z22B.USER'))
+
+mkdir /u/#userid
+    chown #userid:MistarRob /u/#MistarRob
